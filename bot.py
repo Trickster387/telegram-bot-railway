@@ -173,7 +173,8 @@ async def finish_quiz(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int
         f"🏁 Квиз завершен!\n\n"
         f"📊 Твой результат: {score} из {total}\n"
         f"📈 Процент правильных: {percentage:.1f}%\n"
-        f"🎯 Оценка: {grade}",
+        f"🎯 Оценка: {grade}"
+        f"🔄 Хотите пройти викторину ещё раз? Напишите /start",
         reply_markup=ReplyKeyboardRemove()
     )
     
