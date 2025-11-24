@@ -1,3 +1,4 @@
+import os
 import logging
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, ConversationHandler
@@ -5,6 +6,9 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 # Настройка логирования
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Получаем токен из переменных окружения
+TOKEN = os.environ.get('BOT_TOKEN')
 
 # Состояния разговора
 QUESTION, ANSWER = range(2)
@@ -158,8 +162,11 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 def main():
     """Запускаем бота"""
-    # ЗАМЕНИ НА СВОЙ ТОКЕН!
-    application = Application.builder().token("8026036715:A&Ed8bbKpxV5j6vkWRahpGEUsDaWwtb2E_c").build()
+    if not TOKEN:
+        print("❌ Ошибка: BOT_TOKEN не установлен!")
+        return
+    
+    application = Application.builder().token(TOKEN).build()
     
     # Обработчик разговора
     conv_handler = ConversationHandler(
